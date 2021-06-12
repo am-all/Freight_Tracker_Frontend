@@ -124,8 +124,6 @@ const PlaceInteractionForm: FC = (): ReactElement => {
   const rowsPerPage = useAppSelector((state) => state.vehicleList.rows_per_page)
   const page = useAppSelector((state) => state.vehicleList.page)
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, vehicleList.length - page * rowsPerPage);
-
   return (
     <TableContainer component={Paper}>
       <Table aria-label="customized table">

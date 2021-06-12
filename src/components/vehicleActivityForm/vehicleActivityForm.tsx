@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import axios from 'axios';
 
-import { TextField, Button, Grid, Select, MenuItem, FormControl, InputLabel, Box } from '@material-ui/core';
+import { TextField, Button, Grid, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       margin: theme.spacing(2)
     },
+    "align-items-center": {
+        textAlign:'center',
+        alignSelf:'center'
+      }
   }),
 );
 
@@ -32,7 +36,6 @@ const VehicleActivityForm: FC = (): ReactElement => {
 
     const GetVehicleLicencenData = () => {
         dispatch(setShowModal(true));
-        console.log(`${process.env.REACT_APP_NODE_BACKEND}/api/vehicle_licence_list`);
         axios.get(`${process.env.REACT_APP_NODE_BACKEND}/api/vehicle_licence_list`).then(response => {
             dispatch(setVehicleList(response.data.data));
             dispatch(setShowModal(false));
@@ -74,7 +77,7 @@ const VehicleActivityForm: FC = (): ReactElement => {
 
     return (
         <Grid container justify="center" spacing={3}>
-            <Grid item xs={12} sm={6} md={3} spacing={3}>
+            <Grid item xs={12} sm={6} md={3} spacing={3} className={classes["align-items-center"]}>
                 <FormControl className={classes.formControl} >
                     <InputLabel id="vehicle-licence-label">Licence no.</InputLabel>
                     <Select
@@ -87,7 +90,7 @@ const VehicleActivityForm: FC = (): ReactElement => {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} md={3} spacing={3}>
+            <Grid item xs={12} sm={6} md={3} spacing={3} className={classes["align-items-center"]}>
                 <TextField
                     id="datetime-local"
                     label="Start date"
@@ -98,7 +101,7 @@ const VehicleActivityForm: FC = (): ReactElement => {
                     onChange={(event) => { dispatch(setStartTis(event.target.value)) }}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={3} spacing={3}>
+            <Grid item xs={12} sm={6} md={3} spacing={3} className={classes["align-items-center"]}>
                 <TextField error={start_tis > end_tis}
                     id="datetime-local"
                     label="End date"
@@ -110,7 +113,7 @@ const VehicleActivityForm: FC = (): ReactElement => {
                     onChange={(event) => { dispatch(setEndTis(event.target.value)) }}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={3} spacing={3}>
+            <Grid item xs={12} sm={6} md={3} spacing={3} className={classes["align-items-center"]}>
                 <Button variant="contained" 
                 disabled={!(start_tis !== '' && end_tis !== '' && start_tis < end_tis && licence !== "")} 
                 color="primary" 

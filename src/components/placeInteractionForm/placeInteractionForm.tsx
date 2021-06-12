@@ -7,10 +7,24 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 import { addData, setStartTis, setEndTis, setModalDisplay, setPage } from '../../screen/placeInteraction/placeInteractionSlice';
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    "align-items-center": {
+      textAlign:'center',
+      alignSelf:'center'
+    }
+  })
+);
+
 
 const PlaceInteractionForm: FC = (): ReactElement => {
 
     const dispatch = useAppDispatch();
+
+    const classes = useStyles();
 
     const GetPlaceInteractionData = (start_tis: String, end_tis: String) => {
         dispatch(setModalDisplay(true))
@@ -28,8 +42,8 @@ const PlaceInteractionForm: FC = (): ReactElement => {
     const end_tis = useAppSelector((state) => state.vehicleList.end_tis);
 
     return (
-        <Grid container justify="flex-start" spacing={3}>
-            <Grid item xs={12} sm={4} alignContent={"center"}>
+        <Grid container justify="flex-start" spacing={3} align-items-center>
+            <Grid item xs={12} sm={4} alignContent={"center"} className={classes["align-items-center"]}>
                 <TextField
                     id="datetime-local"
                     label="Start date"
@@ -41,7 +55,7 @@ const PlaceInteractionForm: FC = (): ReactElement => {
                 />
             </Grid>
 
-            <Grid item xs={12} sm={4} align-items-xs-center>
+            <Grid item xs={12} sm={4} align-items-xs-center className={classes["align-items-center"]}>
                 <TextField error={start_tis !== "" && start_tis >= end_tis}
                     id="datetime-local"
                     label="End date"
@@ -53,7 +67,7 @@ const PlaceInteractionForm: FC = (): ReactElement => {
                     onChange={(event) => { dispatch(setEndTis(event.target.value)) }}
                 />
             </Grid>
-            <Grid item xs={12} sm={4} alignContent={"center"}>
+            <Grid item xs={12} sm={4} alignContent={"center"} align-items-center className={classes["align-items-center"]}>
                 <Button
                     variant="contained"
                     disabled={start_tis >= end_tis}
